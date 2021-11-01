@@ -1,5 +1,6 @@
 {
   "spellcheck": true,
-  "useTab": false,
-  "alwaysUpdateLinks": true
+  "useTab": true,
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "Attachments"
 }
