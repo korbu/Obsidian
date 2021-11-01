@@ -202,7 +202,7 @@ coll.push_back(s);
 
 As a result, we get a ﬁrst element in the vector, which is a full (deep) copy of the passed value/object `s`.
 
-![image-01.png](chapter01images/image-01.png)
+![image-01.png](image-01.png)
 
 So far, we have nothing to optimize in this program. The current state is that we have two vectors, `v` and `coll`, and two strings, `s` and its copy, which is the ﬁrst element in coll. They should all be separate objects with their own memory for the value, because modifying one of them should not impact any of the other objects.
 
@@ -218,7 +218,7 @@ This statement is performed in three steps:
 1. We insert this **temporary** string into the vector coll. As always, the **container creates a copy** of the passed value, which means that we create a deep copy of the temporary string, including allocating memory for the value.
 1. At the end of the statement, the temporary string `s+s` is destroyed because we no longer need it:
 
-![image-02.png](chapter01images/image-02.png)
+![image-02.png](image-02.png)
 
 Here, we have the <mark>ﬁrst moment where we generate code that is not performing well</mark>: we create a copy of a temporary string and destroy the source of the copy immediately afterwards, which means that we unnecessarily allocate and free memory that **we could have just moved from the source to the copy**.
 
@@ -230,7 +230,7 @@ coll.push_back(s);
 
 Again, `coll` copies `s`:
 
-![image-03.png](chapter01images/image-03.png)
+![image-03.png](image-03.png)
 
 This is also something to improve: because the value of `s` is no longer needed some optimization could use the memory of s as memory for the new element in the vector instead.
 
@@ -253,7 +253,7 @@ If we had a print statement in the copy constructor of a vector or string, we wo
 
 Let us assume that we have the named return value optimization. In that case, at the end of the return statement, `coll` now becomes the return value and the <mark>destructor</mark> of `s` <mark>is called</mark>, which frees the memory allocated when it was declared:
 
-![image-04.png](chapter01images/image-04.png)
+![image-04.png](image-04.png)
 
 7. Finally, we come to the assignment of the return value to `v`:
 
@@ -263,11 +263,11 @@ v = createAndInsert();
 
 Here, we really get behavior that can be improved: the usual assignment operator has the goal of giving `v` the same value as the source value that is assigned. In general, any assigned value should not be modiﬁed and should be independent from the object that the value was assigned to. So, <mark>the assignment operator will create a deep copy of the whole return value (in C++03)</mark>:
 
-![image-05.png](chapter01images/image-05.png)
+![image-05.png](image-05.png)
 
 However, right after that, we no longer need the temporary return value and we destroy it:
 
-![image-06.png](chapter01images/image-06.png)
+![image-06.png](image-06.png)
 
 Again, we create a copy of a temporary object and destroy the source of the copy immediately afterwards,
 which means that we again unnecessarily allocate and free memory. This time it applies to four
@@ -388,7 +388,7 @@ coll.push_back(s);
 
 So far, there is nothing to optimize and we get the same state as with C++03:
 
-![image-07.png](chapter01images/image-07.png)
+![image-07.png](image-07.png)
 
 We have two vectors, `v` and `coll`, and two strings, `s` and its copy, which is the ﬁrst element in `coll`. They should all be separate objects with their own memory for the value, because modifying one of them should not impact any of the other objects.
 
@@ -402,17 +402,17 @@ Again, this statement is performed in three steps:
 
 1. We create the temporary string `s+s`:
 
-![image-08.png](chapter01images/image-08.png)
+![image-08.png](image-08.png)
 
 2. We insert this temporary string into the vector `coll`. However, <mark>here something different happens now</mark>: we steal the memory for the value from `s+s` and move it to the new element of `coll`.
 
-![image-09.png](chapter01images/image-09.png)
+![image-09.png](image-09.png)
 
 <mark>This</mark> is possible because since C++11, we can implement special behavior for getting a value that is no longer needed. The compiler can signal this fact because it knows that right after performing the `push_back()` call, the temporary object `s+s` will be destroyed. So, <mark>we call a different implementation of `push_back()` provided for the case when the caller no longer needs that value.</mark> As we can see, the effect is an optimized implementation of copying a string where we no longer need the value: instead of creating an individual deep copy, we copy both the size and the pointer to the memory. However, that shallow copy is not enough; <mark>we also modify the temporary object `s+s` by setting the size to `0` and assigning the `nullptr` as new value.</mark> Essentially, `s+s` is modiﬁed so that it gets the state of an empty string. The important point is that <mark>it no longer owns its memory.</mark> And that is important because we still have a third step in this statement.
 
 3. At the end of the statement, <mark>the temporary string `s+s` is destroyed because we no longer need it</mark>. However, because the temporary string is no longer the owner of the initial memory, <mark>the destructor will not free this memory.</mark>
 
-![image-10.png](chapter01images/image-10.png)
+![image-10.png](image-10.png)
 
 <mark>Essentially, we optimize the copying so that we move the ownership of the memory for the value of `s+s` to its copy in the vector.</mark>
 
@@ -428,7 +428,7 @@ coll.push_back(std::move(s));
 
 The third element <mark>steals the value by moving the ownership of the memory for the value from `s` to its copy:</mark> (**This is the key to move semantics!!!**)
 
-![image-11.png](chapter01images/image-11.png)
+![image-11.png](image-11.png)
 
 Note the following two very important things to understand about move semantics:
 
@@ -460,7 +460,7 @@ return value and assign new values to these members in the source.
 
 Let us assume that we have the named return value optimization. In that case, at the end of the return statement, `coll` now becomes the return value and the destructor of `s` is called, which no longer has to free any memory because it was moved to the third element of `coll`:
 
-![image-12.png](chapter01images/image-12.png)
+![image-12.png](image-12.png)
 
 7. So, ﬁnally, we come to the assignment of the return value to `v`:
 
@@ -472,13 +472,13 @@ Again, we can beneﬁt from move semantics now because we have a situation we ha
 
 Now, move semantics allows us to provide a different implementation of the assignment operator for a vector that just steals the value from the source vector:
 
-![image-13.png](chapter01images/image-13.png)
+![image-13.png](image-13.png)
 
 Again, the temporary object is not (partially) destroyed. It enters into a valid state but we do not know its value.
 
 However, right after the assignment, <mark>the end of the statement destroys the (modiﬁed) temporary return value:</mark>
 
-![image-14.png](chapter01images/image-14.png)
+![image-14.png](image-14.png)
 
 At the end we are in the same state as before using move semantics but something signiﬁcant has changed: <mark>we saved six allocations and releases of memory.<mark> All unnecessary memory allocations no longer took place:
 
@@ -571,7 +571,7 @@ class string {
 
 A copy constructor would have worked like this:
 
-![image-15.png](chapter01images/image-15.png)
+![image-15.png](image-15.png)
 
 We can call the move constructor for a string as follows:
 
@@ -581,11 +581,11 @@ std::string c = std::move(b); // init c with the value of b (no longer needing i
 
 The move constructor first copies both the members `len` and `data`, meaning that the new string gets ownership of the value of `b` (passed as `s`).
     
-![image-16.png](chapter01images/image-16.png)
+![image-16.png](image-16.png)
     
 However, this is not enough, because the destructor of `b` would free the memory. Therefore, we also modify the source string to lose its ownership of the memory and bring it into a consistent state representing the empty string:
 
-![image-17.png](chapter01images/image-17.png)
+![image-17.png](image-17.png)
 
 Note that the only guarantee is that `b` is subsequently in a valid but unspecified state.
     

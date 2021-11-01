@@ -4,28 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "63e6a15dca2db801",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "Obsidian/Links.md",
-            "mode": "source"
-          }
-        },
-        "group": "7d75922e7f70bb74"
-      },
-      {
         "id": "354343d8aa681f9f",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Obsidian/Links.md",
+            "file": "C++/C++ Move Semantics/Chapter 01.md",
             "mode": "preview"
           }
-        },
-        "group": "7d75922e7f70bb74"
+        }
       }
     ],
     "direction": "vertical"
@@ -81,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Obsidian/Links.md",
+                "file": "C++/C++ Move Semantics/Chapter 01.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,12 +94,12 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "63e6a15dca2db801",
+  "active": "354343d8aa681f9f",
   "lastOpenFiles": [
-    "Obsidian/Links.md",
-    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 01.md",
-    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 13.md",
-    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 09.md",
-    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 02.md"
+    "C++/C++ Move Semantics/Chapter 01.md",
+    "C++/C++ Move Semantics/Chapter 13.md",
+    "C++/C++ Move Semantics/Chapter 09.md",
+    "C++/C++ Move Semantics/Chapter 02.md",
+    "Obsidian/Links.md"
   ]
 }

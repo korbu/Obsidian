@@ -1,4 +1,5 @@
 {
   "spellcheck": true,
-  "useTab": false
+  "useTab": false,
+  "alwaysUpdateLinks": true
 }
