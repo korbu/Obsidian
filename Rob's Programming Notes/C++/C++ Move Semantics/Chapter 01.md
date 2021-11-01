@@ -120,7 +120,7 @@ This is also something to improve: because the value of `s` is no longer needed 
 
 Here, the behavior of the program becomes a bit more complicated. ==We return by value (the return type is not a reference)==, which should be a copy of the value in the return statement, `coll`. Creating a copy of `coll` means that we have to create a deep copy of the whole vector with all of its elements. Thus, we have to allocate heap memory for the array of elements in the vector and heap memory for the value each string allocates to hold its value. Here, we would have to allocate memory 4 times.
 
-However, since at the same time `coll` is destroyed because we leave the scope where it is declared, the compiler is allowed to perform the named return value optimization (NRVO).
+However, since at the same time `coll` is destroyed because we leave the scope where it is declared, the compiler is allowed to perform the named return value optimization (NRVO) (also see [[Glossary#Named Return Value Optimization (NRVO)]]).
 
 ### Named return value optimization
 
@@ -146,12 +146,9 @@ However, right after that, we no longer need the temporary return value and we d
 
 ![image-06.png](image-06.png)
 
-Again, we create a copy of a temporary object and destroy the source of the copy immediately afterwards,
-which means that we again unnecessarily allocate and free memory. This time it applies to four
-allocations, one for the vector and one for each string element.
+Again, we create a copy of a temporary object and destroy the source of the copy immediately afterwards, which means that we again unnecessarily allocate and free memory. This time it applies to four allocations, one for the vector and one for each string element.
 
-For the state of this program after the assignment in `main()`, we allocated memory ten times and released it
-six times. The unnecessary memory allocations were caused by:
+For the state of this program after the assignment in `main()`, we allocated memory ten times and released it six times. The unnecessary memory allocations were caused by:
 
 1. Inserting a temporary object into the collection
 1. Inserting an object into the collection where we no longer need the value
@@ -159,8 +156,7 @@ six times. The unnecessary memory allocations were caused by:
 
 ### Avoiding performance penalties in C++03
 
-We can more or less avoid these performance penalties (in C++03). In particular, instead of the last assignment, we
-could do the following:
+We can more or less avoid these performance penalties (in C++03). In particular, instead of the last assignment, we could do the following:
 
 ```c++
 // Improved example with C++03 (Before Move Semantics)
@@ -196,8 +192,7 @@ std::cout << "Length of vector = " << v.size() << "\n";
 //createAndInsert().swap(v);
 ```
 
-==However, the resulting code looks uglier== (unless you see some beauty in complex code) and there is not
-really a workaround when inserting a temporary object.
+==However, the resulting code looks uglier== (unless you see some beauty in complex code) and there is not really a workaround when inserting a temporary object.
 
 Since C++11, we have another option: compile and run the program with support for move semantics.
 
@@ -285,15 +280,15 @@ Again, this statement is performed in three steps:
 
 ![image-09.png](image-09.png)
 
-==This== is possible because since C++11, we can implement special behavior for getting a value that is no longer needed. The compiler can signal this fact because it knows that right after performing the `push_back()` call, the temporary object `s+s` will be destroyed. So, ==we call a different implementation of `push_back()` provided for the case when the caller no longer needs that value.== As we can see, the effect is an optimized implementation of copying a string where we no longer need the value: instead of creating an individual deep copy, we copy both the size and the pointer to the memory. However, that shallow copy is not enough; ==we also modify the temporary object `s+s` by setting the size to `0` and assigning the `nullptr` as new value.== Essentially, `s+s` is modiﬁed so that it gets the state of an empty string. The important point is that <mark>it no longer owns its memory.== And that is important because we still have a third step in this statement.
+==This== is possible because since C++11, we can implement special behavior for getting a value that is no longer needed. The compiler can signal this fact because it knows that right after performing the `push_back()` call, the temporary object `s+s` will be destroyed. So, ==we call a different implementation of `push_back()` provided for the case when the caller no longer needs that value.== As we can see, the effect is an optimized implementation of copying a string where we no longer need the value: instead of creating an individual deep copy, we copy both the size and the pointer to the memory. However, that shallow copy is not enough; ==we also modify the temporary object `s+s` by setting the size to `0` and assigning the `nullptr` as the new value.== Essentially, `s+s` is modiﬁed so that it gets the state of an empty string. The important point is that ==it no longer owns its memory.== And that is important because we still have a third step in this statement.
 
-3. At the end of the statement, <mark>the temporary string `s+s` is destroyed because we no longer need it==. However, because the temporary string is no longer the owner of the initial memory, <mark>the destructor will not free this memory.==
+3. At the end of the statement, ==the temporary string `s+s` is destroyed because we no longer need it==. However, because the temporary string is no longer the owner of the initial memory, ==the destructor will not free this memory.==
 
 ![image-10.png](image-10.png)
 
-<mark>Essentially, we optimize the copying so that we move the ownership of the memory for the value of `s+s` to its copy in the vector.==
+==Essentially, we optimize the copying so that we move the ownership of the memory for the value of `s+s` to its copy in the vector.==
 
-This is all done automatically by using a compiler that can signal that an object is about to die, so that we can use new implementations to copy a string value that steals the value from the source. <mark>It is not a technical move; it is a semantic move implemented by technically moving the memory for the value from the source string to its copy.==
+This is all done automatically by using a compiler that can signal that an object is about to die, so that we can use new implementations to copy a string value that steals the value from the source. ==It is not a technical move; it is a semantic move implemented by technically moving the memory for the value from the source string to its copy.==
 
 5. The next statement is the statement we modiﬁed for the C++11 version. Again, we insert `s` into `coll`, but the statement has changed by calling `std::move()` for the string `s` that we insert:
 
@@ -301,15 +296,15 @@ This is all done automatically by using a compiler that can signal that an objec
 coll.push_back(std::move(s));
 ```
 
-<mark>Without `std::move()`, the same would happen as with the ﬁrst call of `push_back()`: the vector would create a deep copy of the passed string `s`.== However, in this call, we have marked `s` with `std::move()`, which **semantically** means <mark>**_"I no longer need this value here."_**== As a consequence, we have another call of the other implementation of `push_back()`, which was used when we passed the temporary object `s+s`.
+==Without `std::move()`, the same would happen as with the ﬁrst call of `push_back()`: the vector would create a deep copy of the passed string `s`.== However, in this call, we have marked `s` with `std::move()`, which **semantically** means ==**_"I no longer need this value here."_**== As a consequence, we have another call of the other implementation of `push_back()`, which was used when we passed the temporary object `s+s`.
 
-The third element <mark>steals the value by moving the ownership of the memory for the value from `s` to its copy:== (**This is the key to move semantics!!!**)
+The third element ==steals the value by moving the ownership of the memory for the value from `s` to its copy:== (**This is the key to move semantics!!!**)
 
 ![image-11.png](image-11.png)
 
 Note the following two very important things to understand about move semantics:
 
-1. <mark>`std::move(s)` only **_marks_** `s` to be movable in this context. It does not move anything.== It only says, "**_I no longer need this value here_**." It allows the implementation of the call to benefit from this mark by performing some optimization when copying the value, such as stealing the memory. Whether the value is moved is something the caller does not know.
+1. ==`std::move(s)` only **_marks_** `s` to be movable in this context. It does not move anything.== It only says, "**_I no longer need this value here_**." It allows the implementation of the call to benefit from this mark by performing some optimization when copying the value, such as stealing the memory. Whether the value is moved is something the caller does not know.
 
    1. That **mark** is an `&&`. This will be covered later.
 
@@ -321,7 +316,7 @@ That is, after calling
 coll.push_back(std::move(s));
 ```
 
-it is guaranteed that `s` is still a valid string. You can do whatever you want as long as it is valid for any string where you do not know the value. <mark>It is like using a string parameter where you do not know which value was passed.==
+it is guaranteed that `s` is still a valid string. You can do whatever you want as long as it is valid for any string where you do not know the value. ==It is like using a string parameter where you do not know which value was passed.==
 
 Note that it is also not guaranteed that the string either has its old value or is empty. The value it has is up to the implementers of the (library) function. In general, implementers can do with objects marked with `std::move()` whatever they like, provided they leave the object in a valid state. There are good reasons for this guarantee, which will be discussed later (i.e. in Section 2.3).
 
@@ -332,7 +327,7 @@ Note that it is also not guaranteed that the string either has its old value or 
 }
 ```
 
-It is still up to the compiler whether it generates code with the _named return value optimization_ which would mean that `coll` just becomes the return value. However, if this optimization is not used, the return statement is still cheap, because again we have a situation where we create an object from a source that is about to die. That is, <mark>if the named return value optimization is not used, move semantics will be used, which means that the return value steals the value from `coll`.== At worst, we have to copy the members for size, capacity, and the pointer to the memory (in total, usually 12 or 24 bytes) from the source to the
+It is still up to the compiler whether it generates code with the _named return value optimization_ which would mean that `coll` just becomes the return value. However, if this optimization is not used, the return statement is still cheap, because again we have a situation where we create an object from a source that is about to die. That is, ==if the named return value optimization is not used, move semantics will be used, which means that the return value steals the value from `coll`.== At worst, we have to copy the members for size, capacity, and the pointer to the memory (in total, usually 12 or 24 bytes) from the source to the
 return value and assign new values to these members in the source.
 
 Let us assume that we have the named return value optimization. In that case, at the end of the return statement, `coll` now becomes the return value and the destructor of `s` is called, which no longer has to free any memory because it was moved to the third element of `coll`:
@@ -353,19 +348,19 @@ Now, move semantics allows us to provide a different implementation of the assig
 
 Again, the temporary object is not (partially) destroyed. It enters into a valid state but we do not know its value.
 
-However, right after the assignment, <mark>the end of the statement destroys the (modiﬁed) temporary return value:==
+However, right after the assignment, ==the end of the statement destroys the (modiﬁed) temporary return value:==
 
 ![image-14.png](image-14.png)
 
-At the end we are in the same state as before using move semantics but something signiﬁcant has changed: <mark>we saved six allocations and releases of memory.<mark> All unnecessary memory allocations no longer took place:
+At the end we are in the same state as before using move semantics but something signiﬁcant has changed: ==we saved six allocations and releases of memory.== All unnecessary memory allocations no longer took place:
 
-1. Allocations for inserting <mark>a temporary object== into the collection
-2. Allocations for inserting <mark>a named object== into the collection, when we use `std::move()` to signal that we no longer need the value
-3. Allocations for assigning <mark>a temporary vector== with all its elements
+1. Allocations for inserting ==a temporary object== into the collection
+2. Allocations for inserting ==a named object== into the collection, when we use `std::move()` to signal that we no longer need the value
+3. Allocations for assigning ==a temporary vector== with all its elements
 
 In the second case, the optimization was done with our help. By adding `std::move()`, we had to say that we no longer needed the value of `s` there. All other optimizations happened because the compiler knows that an object is about to die, meaning that it can call the optimized implementation, which uses move semantics.
 
-<mark>This means that returning a vector of strings and assigning it to an existing vector is no longer a performance issue. We can use a vector of strings naively like an integral type and get much better performance.== In practice, recompiling code with move semantics can improve speed by 10% to 40% (depending on how naive the existing code was).
+==This means that returning a vector of strings and assigning it to an existing vector is no longer a performance issue. We can use a vector of strings naively like an integral type and get much better performance.== In practice, recompiling code with move semantics can improve speed by 10% to 40% (depending on how naive the existing code was).
 
 ### Technical vs. Semantic Moves (reviewing the content above)
 
@@ -408,16 +403,16 @@ class vector {
 };
 ```
 
-The second `push_back()` uses a new syntax introduced for move semantics. <mark>We declare the argument with two `&` and without `const`.== Such an argument is called an ***rvalue reference***.
+The second `push_back()` uses a new syntax introduced for move semantics. ==We declare the argument with two `&` and without `const`.== Such an argument is called an ***rvalue reference***.
 
 "Ordinary references" that have only one `&` are now called ***lvalue references***. That is, in both calls we pass the value to be inserted by reference.
 
 However, the difference is as follows:
 
-* With `push_back(const T&)`, we promise not to modify the passed value. This function is called when the <mark>caller still needs the passed value==.
+* With `push_back(const T&)`, we promise not to modify the passed value. This function is called when the ==caller still needs the passed value==.
 
-* With `push_back(T&&)`, <mark>the implementation can modify the passed argument (therefore it is not const) to "steal" the value==. The semantic meaning is still that the new element receives the value of the passed argument but we can use an optimized implementation that moves the value into the vector.
-    * This function is called <mark>when the caller no longer needs the passed value==. The implementation has to ensure that the passed argument is still in a valid state. However, the value may be changed. Therefore, after calling this, the caller can still use the passed argument as long as the caller does not make any assumption about its value.
+* With `push_back(T&&)`, ==the implementation can modify the passed argument (therefore it is not const) to "steal" the value==. The semantic meaning is still that the new element receives the value of the passed argument but we can use an optimized implementation that moves the value into the vector.
+    * This function is called ==when the caller no longer needs the passed value==. The implementation has to ensure that the passed argument is still in a valid state. However, the value may be changed. Therefore, after calling this, the caller can still use the passed argument as long as the caller does not make any assumption about its value.
 
 ### 1.2.2 Using the Move Constructor
 
@@ -470,7 +465,7 @@ Note that the only guarantee is that `b` is subsequently in a valid but unspecif
     
 If there is no optimized version of a function for move semantics, then the usual copying is used as a fallback.
 
-<mark>So, if the `std::vector` class had no `void push_back(T&& elem);` to perform move semantics, then `void push_back(const T& elem);` would be used to perform copy semantics.==
+==So, if the `std::vector` class had no `void push_back(T&& elem);` to perform move semantics, then `void push_back(const T& elem);` would be used to perform copy semantics.==
 
 The rule is that for a temporary object or an object marked with `std::move()`, if available, a function declaring the parameter as an rvalue reference is preferred. However, if no such function exists, the usual copy semantics is used. That way, we ensure that the caller does not have to know whether an optimization exists.
 
