@@ -22,28 +22,33 @@ Please use the following email address for feedback: [cppmove@josuttis.com](mail
 
 This part of the book introduces the basic features of move semantics that are **not** speciﬁc to generic programming (i.e., templates). They are particularly helpful for application programmers in their day-to-day programming and therefore every C++ programmer using Modern C++ should know them.
 
-Move semantics features for generic programming are covered in Part II.
+Move semantics features for generic programming are covered in Part II (see [[Chapter 09]].
 
 ### Use the modern form of initialization (introduced in C++11 as _uniform initialization_) with curly braces
 
 ```c++
 #include <iostream>
 
+// Example # 1
 int i{42};
 
+// Example # 2
 // j is guaranteed to be 0.
 int j{};
 
+// Example # 3
 std::string s{"hello world"};
 
 std::cout << "int i = " << i << "\n";
 std::cout << "int j = " << j << "\n";
 std::cout << "string s = " << s << "\n";
 
-// detect narrowing errors
+// Example # 4
+// It detects narrowing errors.
 // int j{31.5};
 
-// Initialize a contain with multiple values, also known as aggregate initialization.
+// Example # 5
+// Initialize a container with multiple values, also known as aggregate initialization.
 // - Also see https://en.cppreference.com/w/cpp/language/aggregate_initialization.
 // - Note: You are better off using std::array than regular C/C++ arrays here.
 int k[]{ 1, 2, 4, 8 };
