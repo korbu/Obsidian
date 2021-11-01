@@ -1,0 +1,110 @@
+{
+  "main": {
+    "id": "00ac20776fa04d6e",
+    "type": "split",
+    "children": [
+      {
+        "id": "63e6a15dca2db801",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Obsidian/Links.md",
+            "mode": "source"
+          }
+        },
+        "group": "7d75922e7f70bb74"
+      },
+      {
+        "id": "354343d8aa681f9f",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Obsidian/Links.md",
+            "mode": "preview"
+          }
+        },
+        "group": "7d75922e7f70bb74"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9a61d463ac0125f4",
+    "type": "split",
+    "children": [
+      {
+        "id": "3f703549c70b53d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7ec2e9652511929f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "849b622c85821841",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ef336e96ce1d6f3b",
+    "type": "split",
+    "children": [
+      {
+        "id": "15e7b8923bcfcaaa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c5e33a8bed9e405",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Obsidian/Links.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "63e6a15dca2db801",
+  "lastOpenFiles": [
+    "Obsidian/Links.md",
+    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 01.md",
+    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 13.md",
+    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 09.md",
+    "C++/C++ Move Semantics/C++ Move Semantics - Chapter 02.md"
+  ]
+}
