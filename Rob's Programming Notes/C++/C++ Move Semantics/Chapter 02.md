@@ -22,7 +22,7 @@ std::string returnStringByValue()
 
 std::string s{"hello"};
 
-// std::string&& r1{s};                     // ERROR
+// std::string&& r1{s};                  // ERROR
 std::string&& r2{std::move(s)};          // OK, fixes the above line
 std::string&& r3{returnStringByValue()}; // OK, extends lifetime of return value
 
