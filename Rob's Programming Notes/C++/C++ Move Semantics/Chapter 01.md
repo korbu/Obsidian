@@ -1,8 +1,8 @@
 # C++ Move Semantics
 
-by Nicolai M. Josuttis
+by *Nicolai M. Josuttis*
 
-<progress value="2" max="13"></progress>
+My progress through all 15 chapters: <progress value="2" max="15"></progress>
 
 > This book covers all aspects of C++ move semantics up to C++20.
 
@@ -20,7 +20,7 @@ Please use the following email address for feedback: [cppmove@josuttis.com](mail
 
 ## Part I: Basic Features of Move Semantics
 
-This part of the book introduces the basic features of move semantics that are not speciﬁc to generic programming (i.e., templates). They are particularly helpful for application programmers in their day-to-day programming and therefore every C++ programmer using Modern C++ should know them.
+This part of the book introduces the basic features of move semantics that are **not** speciﬁc to generic programming (i.e., templates). They are particularly helpful for application programmers in their day-to-day programming and therefore every C++ programmer using Modern C++ should know them.
 
 Move semantics features for generic programming are covered in Part II.
 
