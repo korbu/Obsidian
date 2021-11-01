@@ -120,7 +120,7 @@ This is also something to improve: because the value of `s` is no longer needed 
 
 Here, the behavior of the program becomes a bit more complicated. ==We return by value (the return type is not a reference)==, which should be a copy of the value in the return statement, `coll`. Creating a copy of `coll` means that we have to create a deep copy of the whole vector with all of its elements. Thus, we have to allocate heap memory for the array of elements in the vector and heap memory for the value each string allocates to hold its value. Here, we would have to allocate memory 4 times.
 
-However, since at the same time `coll` is destroyed because we leave the scope where it is declared, the compiler is allowed to perform the named return value optimization (NRVO) (also see [[Glossary#Named Return Value Optimization (NRVO)]]).
+However, since at the same time `coll` is destroyed because we leave the scope where it is declared, the compiler is allowed to perform the [[Glossary#Named Return Value Optimization (NRVO)|named return value optimization (NRVO)]].
 
 ### Named return value optimization
 
@@ -298,7 +298,7 @@ coll.push_back(std::move(s));
 
 ==Without `std::move()`, the same would happen as with the ﬁrst call of `push_back()`: the vector would create a deep copy of the passed string `s`.== However, in this call, we have marked `s` with `std::move()`, which **semantically** means ==**_"I no longer need this value here."_**== As a consequence, we have another call of the other implementation of `push_back()`, which was used when we passed the temporary object `s+s`.
 
-The third element ==steals the value by moving the ownership of the memory for the value from `s` to its copy:== (**This is the key to move semantics!!!**)
+The third element ==steals the value by moving the ownership of the memory for the value from `s` to its copy:== (**This is the key to move semantics!!!** The value itself never moves; only the pointer to the value, i.e., its owner, moves.)
 
 ![image-11.png](image-11.png)
 
@@ -318,7 +318,7 @@ coll.push_back(std::move(s));
 
 it is guaranteed that `s` is still a valid string. You can do whatever you want as long as it is valid for any string where you do not know the value. ==It is like using a string parameter where you do not know which value was passed.==
 
-Note that it is also not guaranteed that the string either has its old value or is empty. The value it has is up to the implementers of the (library) function. In general, implementers can do with objects marked with `std::move()` whatever they like, provided they leave the object in a valid state. There are good reasons for this guarantee, which will be discussed later (i.e. in Section 2.3).
+Note that it is also not guaranteed that the string either has its old value or is empty. The value it has is up to the implementers of the (library) function. In general, implementers can do with objects marked with `std::move()` whatever they like, provided they leave the object in a valid state. There are good reasons for this guarantee, which will be discussed later (i.e. in [[Chapter 02#2 3 Moved-From Objects|Section 2.3]]).
 
 6. Again, at the end of `createAndInsert()` we come to the return statement:
 
@@ -327,8 +327,7 @@ Note that it is also not guaranteed that the string either has its old value or 
 }
 ```
 
-It is still up to the compiler whether it generates code with the _named return value optimization_ which would mean that `coll` just becomes the return value. However, if this optimization is not used, the return statement is still cheap, because again we have a situation where we create an object from a source that is about to die. That is, ==if the named return value optimization is not used, move semantics will be used, which means that the return value steals the value from `coll`.== At worst, we have to copy the members for size, capacity, and the pointer to the memory (in total, usually 12 or 24 bytes) from the source to the
-return value and assign new values to these members in the source.
+It is still up to the compiler whether it generates code with the _[[Glossary#Named Return Value Optimization NRVO|named return value optimization]]_ which would mean that `coll` just becomes the return value. However, if this optimization is not used, the return statement is still cheap, because again we have a situation where we create an object from a source that is about to die. That is, ==if the named return value optimization is not used, move semantics will be used, which means that the return value steals the value from `coll`.== At worst, we have to copy the members for size, capacity, and the pointer to the memory (in total, usually 12 or 24 bytes) from the source to the return value and assign new values to these members in the source.
 
 Let us assume that we have the named return value optimization. In that case, at the end of the return statement, `coll` now becomes the return value and the destructor of `s` is called, which no longer has to free any memory because it was moved to the third element of `coll`:
 
@@ -366,8 +365,7 @@ In the second case, the optimization was done with our help. By adding `std::mov
 
 In C++11 (and later), we call a different implementation of `push_back()` provided for the case when the caller no longer needs the value of a variable. Instead of creating an individual deep copy, we copy both the size and the pointer to the memory.
 
-However, that shallow copy is not enough; we also modify the temporary object `s+s` by setting the size to 0 and
-assigning the `nullptr` as its new value. Essentially, `s+s` is modified so that it gets the state of an empty string. The important point is that it no longer owns its memory.
+However, that shallow copy is not enough; we also modify the temporary object `s+s` by setting the size to 0 and assigning the `nullptr` as its new value. Essentially, `s+s` is modified so that it gets the state of an empty string. The important point is that it no longer owns its memory.
 
 At the end of the statement, the temporary string `s+s` is destroyed because we no longer need it. However, because the temporary string is no longer the owner of the initial memory, the destructor will not free this memory.
 
@@ -383,7 +381,7 @@ Two very important things to understand about move semantics:
 
 1. `std::move(s)` **only marks s to be movable** in this context. **It does not move anything.** It only says, "I no longer need this value here." It allows the implementation of the call to benefit from this mark by performing some optimization when copying the value, such as stealing the memory. Whether the value is moved is something the caller does not know.
 
-1. However, an optimization that steals the value has to ensure that the source object is still in a valid state. A moved-from object is neither partially nor fully destroyed. The C++ standard library formulates this for its types as follows: **after an operation** called for an object marked with std::move(), **the object is in a valid but unspecified state.**
+1. However, an optimization that steals the value has to ensure that the source object is still in a valid state. A moved-from object is neither partially nor fully destroyed. The C++ standard library formulates this for its types as follows: **after an operation** called for an object marked with `std::move()`, **the object is in a valid but unspecified state.**
 
 ### 1.2 Implementing Move Semantics
 
@@ -420,8 +418,7 @@ However, the difference is as follows:
 
 This is the constructor that creates a new string from an existing string, where the value is no longer needed.
 
-As usual with move semantics, the constructor is declared with a non-const rvalue reference (`&&`) as its
-parameter:
+As usual with move semantics, the constructor is declared with a non-const rvalue reference (`&&`) as its parameter:
 
 ```c++
 class string {
@@ -495,8 +492,7 @@ coll.push_back(std::move(s)); // OK, calls push_back(const std::string&), VS 201
 coll
 ```
 
-That means that a `std::move()` for const objects essentially has no effect. The `const` lvalue reference overload
-serves as a fallback to handle this case.
+That means that a `std::move()` for const objects essentially has no effect. The `const` lvalue reference overload serves as a fallback to handle this case.
 
 ### 1.4.1 const Return Values
 

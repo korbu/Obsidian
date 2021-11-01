@@ -84,3 +84,4 @@ std::string s{"hello"};
 s
 ```
 
+## 2.3 Moved-From Objects
