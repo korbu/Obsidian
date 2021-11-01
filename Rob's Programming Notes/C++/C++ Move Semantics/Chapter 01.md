@@ -65,12 +65,9 @@ The allocated memory is not initialized because the number of elements is still 
 std::string s = "data";
 ```
 
-A string is something like a `vector` with `char` elements. Essentially, we create an object on the stack
-with a member for the number of characters (having the value 4) and a pointer to the memory for the
-characters.
+A string is something like a `vector` with `char` elements. Essentially, we create an object on the stack with a member for the number of characters (having the value 4) and a pointer to the memory for the characters.
 
-After this statement, the program has the following state: we have three objects on the stack: `v`, `coll`,
-and `s`. Two of them, `coll` and `s`, have allocated memory on the heap.
+After this statement, the program has the following state: we have three objects on the stack: `v`, `coll`, and `s`. Two of them, `coll` and `s`, have allocated memory on the heap.
 
 The next step is the command to insert the string into the vector coll:
 
@@ -84,7 +81,7 @@ As a result, we get a ﬁrst element in the vector, which is a full (deep) copy 
 
 ![image-01.png](image-01.png)
 
-So far, we have nothing to optimize in this program. The current state is that we have two vectors, `v` and `coll`, and two strings, `s` and its copy, which is the ﬁrst element in coll. They should all be separate objects with their own memory for the value, because modifying one of them should not impact any of the other objects.
+So far, we have nothing to optimize in this program. The current state is that we have two vectors, `v` and `coll`, and two strings, `s` and its copy, which is the first element in `coll`. They should all be separate objects with their own memory for the value, because modifying one of them should not impact any of the other objects.
 
 4. Let us now look at the next statement, which creates a new temporary string and again inserts it into the vector:
 
@@ -94,8 +91,8 @@ coll.push_back(s+s);
 
 This statement is performed in three steps:
 
-1. We create the **temporary** string s+s.
-1. We insert this **temporary** string into the vector coll. As always, the **container creates a copy** of the passed value, which means that we create a deep copy of the temporary string, including allocating memory for the value.
+1. We create the **temporary** string `s+s`.
+1. We insert this **temporary** string into the vector `coll`. As always, the **container creates a copy** of the passed value, which means that we create a deep copy of the temporary string, including allocating memory for the value.
 1. At the end of the statement, the temporary string `s+s` is destroyed because we no longer need it:
 
 ![image-02.png](image-02.png)
@@ -112,9 +109,9 @@ Again, `coll` copies `s`:
 
 ![image-03.png](image-03.png)
 
-This is also something to improve: because the value of `s` is no longer needed some optimization could use the memory of s as memory for the new element in the vector instead.
+This is also something to improve: because the value of `s` is no longer needed some optimization could use the memory of `s` as memory for the new element in the vector instead.
 
-6. At the end of createAndInsert() we come to the return statement:
+6. At the end of `createAndInsert()` we come to the `return` statement:
 
 ```c++
    return coll;

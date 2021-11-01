@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "C++/C++ Move Semantics/Chapter 01.md",
+            "file": "C++/C++ Move Semantics/Glossary.md",
             "mode": "preview"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++/C++ Move Semantics/Chapter 01.md",
+                "file": "C++/C++ Move Semantics/Glossary.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,6 +96,7 @@
   },
   "active": "354343d8aa681f9f",
   "lastOpenFiles": [
+    "C++/C++ Move Semantics/Glossary.md",
     "C++/C++ Move Semantics/Chapter 01.md",
     "C++/C++ Move Semantics/Chapter 02.md",
     "C++/C++ Move Semantics/_Overview.md",
