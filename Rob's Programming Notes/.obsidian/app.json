@@ -2,5 +2,9 @@
   "spellcheck": true,
   "useTab": true,
   "alwaysUpdateLinks": true,
-  "attachmentFolderPath": "Attachments"
+  "attachmentFolderPath": "Attachments",
+  "spellcheckDictionary": [
+    "IntelliCode",
+    "CMake"
+  ]
 }

@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Obsidian/Links.md",
+            "file": "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Obsidian/Links.md",
+                "file": "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,6 +96,7 @@
   },
   "active": "354343d8aa681f9f",
   "lastOpenFiles": [
+    "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
     "Obsidian/Links.md",
     "C++/C++ Move Semantics/Chapter 02.md",
     "C++/C++ Move Semantics/Chapter 01.md",
