@@ -5,6 +5,10 @@
   "attachmentFolderPath": "Attachments",
   "spellcheckDictionary": [
     "IntelliCode",
-    "CMake"
+    "CMake",
+    "npm",
+    "coroutine",
+    "Coroutines",
+    "Declaratively"
   ]
 }

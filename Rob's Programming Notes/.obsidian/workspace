@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
+            "file": "Building native Windows applications in Visual Studio 2022.md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
+                "file": "Building native Windows applications in Visual Studio 2022.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,6 +96,7 @@
   },
   "active": "354343d8aa681f9f",
   "lastOpenFiles": [
+    "Building native Windows applications in Visual Studio 2022.md",
     "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
     "Obsidian/Links.md",
     "C++/C++ Move Semantics/Chapter 02.md",
