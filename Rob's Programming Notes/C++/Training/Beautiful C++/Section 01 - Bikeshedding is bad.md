@@ -1,7 +1,7 @@
 # Section 01 - Bikeshedding is bad
 **Created**: Tuesday, December 28, 2021 12:24:07 PM -05:00
 
-## Chapter 1.1: P.2 Write in ISO Standard C++
+## Chapter 1.1: P.2: Write in ISO Standard C++
 [C++ Core Guidelines (isocpp.github.io)](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#p2-write-in-iso-standard-c)
 
 <mark style="background: #FFF3A3A6;">TODO: </mark>[A History of C++: 1979− 1991 (stroustrup.com)](https://www.stroustrup.com/hopl2.pdf)
@@ -124,4 +124,45 @@ This is the home of C++ on the Web and is run by the Standard C++ Foundation.  O
     2. Discord: https://www.includecpp.org
         1. [Join Discord (includecpp.org)](https://www.includecpp.org/discord/)
 
-## Chapter 1.2: Where there is a choice, prefer default arguments over overloading.
+## Chapter 1.2: F.51: Where there is a choice, prefer default arguments over overloading.
+[C++ Core Guidelines (isocpp.github.io)](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f51-where-there-is-a-choice-prefer-default-arguments-over-overloading)
+1. There is a saying that code should be self-documenting.  It is in API design that you should try hardest to meet this goal.
+2. As extra abstractions are added to a codebase over time, the problem of unambiguously naming things rears its ugly head.
+    1. <mark style="background: #BBFABBA6;">Naming is hard.</mark> 
+3. This is where overloading may seem like a good idea.
+4. <mark style="background: #BBFABBA6;">If you express semantically identical functions with default arguments instead of multiple, overloaded functions, your API will be simpler to understand.</mark> 
+5. Remember the difference between a parameter and an argument:
+    1. An argument is passed to a function.
+    2. A function declaration includes a parameter list, of which one of more may be supplied with a default argument.
+    3. There is no such thing as a default parameter.
+
+### The subtleties of overload resolution
+Overload resolution is a tricky beast to master.  <mark style="background: #BBFABBA6;">Nearly two percent of the C++20 standard is devoted to defining how overload resolution works.</mark> 
+
+<mark style="background: #FFF3A3A6;">Re-read his explanation about conversions of arguments.</mark> 
+
+### The unambiguous nature of default arguments
+1. The advantage of a default argument is that any conversion is immediately apparent on inspection.
+2. A single function is more reassuring than an overload set.
+    1. If your function is well named and well designed, your client should not need to know or worry about which version to call.
+    2. This is easier said than done; see his example in the book.
+3. A single function also avoids code replication.
+    1. You end up with a maintenance problem with overloaded functions as functionality grows.
+4. There is one limitation: default arguments must be applied in reverse order through the parameter list of a function, i.e., if you provide default arguments, then all of the arguments at the end of the function declaration must have defaults from the first default to the end.
+
+We hope you are convinced that function overloading, although cute, is not to be taken lightly.  <mark style="background: #BBFABBA6;">Overload resolution is complicated.</mark> 
+1. <mark style="background: #BBFABBA6;">Please do not mix default parameters with overloaded functions.</mark> 
+    1. This becomes very hard to parse and sets traps for the unwary.
+    2. It is not an interface style that is either easy to use correctly or hard to use incorrectly.
+    3. This falls into the chainsaw-juggling category of API design style.
+
+### Sometimes you must overload
+This guideline starts with the phrase "Where there is a choice".  For example, there is only one constructor identifier, so if you want to construct a class in a variety of ways, you must provide constructor overloads.
+
+Similarly, operators have a singular meaning that is very valuable to your clients, e.g., writing `new_string = string1 + string2;` vs. `new_string = concatenate(string1, string2);`.
+
+The standard provides the customization point `std::swap`, where you are expected to overload the function optimally for your class.  See [C.83: For value-like types, consider providing a `noexcept` swap function](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c83-for-value-like-types-consider-providing-a-noexcept-swap-function).
+1. Note that it is highly unlikely that you would want a default argument when overloading this function.
+
+## Chapter 1.3: C.45: Don’t define a default constructor that only initializes data members; use in-class member initializers instead
+[C++ Core Guidelines (isocpp.github.io)](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c45-dont-define-a-default-constructor-that-only-initializes-data-members-use-in-class-member-initializers-instead)

@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "076d918befd93a4b",
+        "id": "219e1abaa667c6ea",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -40,7 +36,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "robert",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,25 +90,33 @@
               "type": "RSS_FEED",
               "state": {}
             }
+          },
+          {
+            "id": "dc381ff0ef7ef92e",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
-  "active": "076d918befd93a4b",
+  "active": "219e1abaa667c6ea",
   "lastOpenFiles": [
     "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
+    "C++/Tricks & Tips/Tricks & Tips.md",
+    "C++/Tricks & Tips/Clone the C++ Core Guidelines onto each machine.md",
     "C++/Glossary.md",
+    "C++/Training/Pluralsight C++ Learning Path/Beginner -  C++ Fundamentals Including C++ 17.md",
+    "C++/Training/CppCon 2019 - 2019-09-16 to 2019-09-20/Arthur O'Dwyer Back to Basics - RAII and the Rule of Zero.md",
+    "C++/Training/C++ Move Semantics/_Overview.md",
     "References & Links^isocpp.md",
     "Linux/10 Frequently Used Bash Scripts and Commands.md",
-    "Linux/WSL and NFS 4.1.md",
-    "media/1-ddf376c8b5724bb9a6c34d275f7eb363.png.md",
-    "media/1-2155143750f34c9ea509366e32f502d3.png.md",
-    "media/TFS-Build-and-Release---Additional-Resources-1-2671edcb221f4bf189580e7db276beed.docx.md",
-    "Training/_Overall Training Plan.md",
-    "Training/PowerShell.md"
+    "Linux/WSL and NFS 4.1.md"
   ]
 }
