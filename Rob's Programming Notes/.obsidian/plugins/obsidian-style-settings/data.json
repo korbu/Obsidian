@@ -1,0 +1,9 @@
+{
+  "obsidian-prism-theme@@dark-accent-color-preset": "pt-dark-accent-color-blue",
+  "obsidian-prism-theme@@accent-style-dt": "pt-accent-style-borderandfilled-dt",
+  "obsidian-prism-theme@@titlebar-style": "pt-windows-titlebar",
+  "obsidian-prism-theme@@pt-solid-titlebar-dt": true,
+  "obsidian-prism-theme@@titlebar-text-color-dt": "pt-titlebar-text-accent-dt",
+  "obsidian-prism-theme@@pt-solid-status-bar-dt": true,
+  "obsidian-prism-theme@@status-bar-text-color-dt": "pt-status-bar-text-accent-dt"
+}

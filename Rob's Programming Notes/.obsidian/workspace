@@ -4,13 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "354343d8aa681f9f",
+        "id": "076d918befd93a4b",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
-            "mode": "source"
+            "file": "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -39,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "robert",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -68,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
+                "file": "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -80,31 +81,39 @@
             }
           },
           {
-            "id": "d3255358a55e81c1",
+            "id": "ba6dc8efd3885361",
             "type": "leaf",
             "state": {
-              "type": "git-view",
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          },
+          {
+            "id": "400f3d8cf57c7a05",
+            "type": "leaf",
+            "state": {
+              "type": "RSS_FEED",
               "state": {}
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
-  "active": "354343d8aa681f9f",
+  "active": "076d918befd93a4b",
   "lastOpenFiles": [
-    "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
-    "Training/VS 2022/Tips and Tricks - Connect your application to Azure using Visual Studio.md",
-    "Training/VS 2022/Building native Windows applications in Visual Studio 2022.md",
-    "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
-    "Obsidian/Links.md",
-    "C++/C++ Move Semantics/Chapter 02.md",
-    "C++/C++ Move Semantics/Chapter 01.md",
-    "C++/C++ Move Semantics/Glossary.md",
-    "C++/C++ Move Semantics/_Overview.md",
-    "C++/C++ Move Semantics/Chapter 09.md"
+    "C++/Training/Beautiful C++/Section 01 - Bikeshedding is bad.md",
+    "C++/Glossary.md",
+    "References & Links^isocpp.md",
+    "Linux/10 Frequently Used Bash Scripts and Commands.md",
+    "Linux/WSL and NFS 4.1.md",
+    "media/1-ddf376c8b5724bb9a6c34d275f7eb363.png.md",
+    "media/1-2155143750f34c9ea509366e32f502d3.png.md",
+    "media/TFS-Build-and-Release---Additional-Resources-1-2671edcb221f4bf189580e7db276beed.docx.md",
+    "Training/_Overall Training Plan.md",
+    "Training/PowerShell.md"
   ]
 }

@@ -1,4 +1,12 @@
 [
-  "table-editor-obsidian",
-  "obsidian-git"
+  "obsidian-extra-md-commands",
+  "get-info-plugin",
+  "highlightr-plugin",
+  "link-favicon",
+  "obsidian-git",
+  "theme-picker",
+  "obsidian-style-settings",
+  "obsidian-emoji-toolbar",
+  "rss-reader",
+  "table-editor-obsidian"
 ]

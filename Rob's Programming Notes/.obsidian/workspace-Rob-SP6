@@ -1,0 +1,110 @@
+{
+  "main": {
+    "id": "00ac20776fa04d6e",
+    "type": "split",
+    "children": [
+      {
+        "id": "354343d8aa681f9f",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9a61d463ac0125f4",
+    "type": "split",
+    "children": [
+      {
+        "id": "3f703549c70b53d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7ec2e9652511929f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "849b622c85821841",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 259
+  },
+  "right": {
+    "id": "ef336e96ce1d6f3b",
+    "type": "split",
+    "children": [
+      {
+        "id": "15e7b8923bcfcaaa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c5e33a8bed9e405",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d3255358a55e81c1",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "354343d8aa681f9f",
+  "lastOpenFiles": [
+    "Training/VS 2022/Tips and Tricks - Debug faster with IntelliTrace.md",
+    "Training/VS 2022/Tips and Tricks - Connect your application to Azure using Visual Studio.md",
+    "Training/VS 2022/Building native Windows applications in Visual Studio 2022.md",
+    "Training/VS 2022/Welcome to Visual Studio 2022 – by Scott Hanselman and friends.md",
+    "Obsidian/Links.md",
+    "C++/C++ Move Semantics/Chapter 02.md",
+    "C++/C++ Move Semantics/Chapter 01.md",
+    "C++/C++ Move Semantics/Glossary.md",
+    "C++/C++ Move Semantics/_Overview.md",
+    "C++/C++ Move Semantics/Chapter 09.md"
+  ]
+}

@@ -12,7 +12,16 @@
   transform-origin: 50% 50%;
   display: inline-block;
 }
-.center{
+.obsidian-git-center{
   margin: auto;
   width: 50%;
+}
+.tooltip.mod-left {
+  overflow-wrap: break-word;
+}
+.tooltip.mod-right {
+  overflow-wrap: break-word;
+}
+.obsidian-git-shortcuts{
+  margin: 10px;
 }

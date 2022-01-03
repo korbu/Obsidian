@@ -1,6 +1,6 @@
 {
   "spellcheck": true,
-  "useTab": true,
+  "useTab": false,
   "alwaysUpdateLinks": true,
   "attachmentFolderPath": "Attachments",
   "spellcheckDictionary": [
@@ -9,6 +9,33 @@
     "npm",
     "coroutine",
     "Coroutines",
-    "Declaratively"
-  ]
+    "Declaratively",
+    "Bosu",
+    "Arcola",
+    "http",
+    "https",
+    "OneNote",
+    "subdirectories",
+    "OneNotes",
+    "Kubernetes",
+    "localhost",
+    "distro",
+    "OpenShift",
+    "RedHat",
+    "VMs",
+    "PowerShell",
+    "macOS",
+    "VMware",
+    "Hennah",
+    "vestings",
+    "Reston",
+    "nuget",
+    "Hennah",
+    "Jes",
+    "glutes"
+  ],
+  "promptDelete": false,
+  "readableLineLength": false,
+  "legacyEditor": false,
+  "livePreview": true
 }

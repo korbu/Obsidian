@@ -1,0 +1,1 @@
+[hacking C++ on Twitter: "C++ Standard Library Algorithms Quick Visual Reference Part 1/32 - Sorted Range Operations #cpp #cplusplus #algorithms #programming #cheatsheet https://t.co/7vvuzOyKGw" / Twitter](https://twitter.com/hackingcpp/status/1409601620229361665)
